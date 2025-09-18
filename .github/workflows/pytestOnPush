@@ -1,9 +1,11 @@
+---
 name: Pytest On Push
 
 on:
   push:
     branches:
-    - main
+      - main
+      - rm0-dev
 
 jobs:
   test:
