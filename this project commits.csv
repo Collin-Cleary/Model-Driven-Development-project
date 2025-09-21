@@ -1,0 +1,18 @@
+sha,author,email,date,message
+2290a8457900a7ade676930f74ae8011512375c4,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-18 15:56:58+00:00,"Merge pull request #2 from Collin-Cleary/rm0-dev
+
+Rm0 dev"
+16d547911ea6daf3c106d36ae9c8f15e5a8c5943,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-18 14:44:22+00:00,Create pytestOnPush.yml
+75e25186ad5a7eeba7b3826705eb447605edb144,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-18 14:40:44+00:00,Delete .github/workflows/main.yml
+a4f2070f0d5ac41ad14f6bcf6c5092da57773180,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-18 14:40:25+00:00,Create main.yml
+0eb459de108144f807b96960b80ee008783d12b9,Collin Cleary,collin.cleary@yahoo.com,2025-09-18 14:26:50+00:00,last minute change
+72f22d0baa64a631553ca5184620993735010b71,Collin Cleary,collin.cleary@yahoo.com,2025-09-18 14:26:13+00:00,trying to get it to actually run
+7f7d2be0d1f62210f0a0c039fd2cf98d2cb9a061,Collin Cleary,collin.cleary@yahoo.com,2025-09-18 14:14:59+00:00,small change to try and trigger the workflow
+da5c2c14b63c7fe204a09a402b4633a54b8cb7c4,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-17 23:42:37+00:00,"Merge pull request #1 from Collin-Cleary/rm0-dev
+
+Rm0 dev"
+898b8a8e9616621b81bed6f3bd2427ba28aee22e,Collin Cleary,collin.cleary@yahoo.com,2025-09-17 23:41:41+00:00,finished making the yml
+9d136dfa7331440618da36445b56ba05d0495c61,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-17 23:28:34+00:00,Delete .venv directory
+d661d2ef848fc990ff671a45e4ebea22cfd907ff,Collin Cleary,collin.cleary@yahoo.com,2025-09-17 23:27:21+00:00,working on the first assignment
+ac439501c9330ce5bcd2930ed7eeb6fa42e2ed88,Collin Cleary,collin.cleary@yahoo.com,2025-09-17 23:25:05+00:00,working on the first assignment
+e63ce72720c91cb0b918e327c8b8f2b259234452,Collin-Cleary,89468342+Collin-Cleary@users.noreply.github.com,2025-09-17 23:07:53+00:00,Initial commit
