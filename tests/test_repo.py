@@ -97,3 +97,16 @@ def test_fetch_commits_octocat():
         df = fetch_commits("octocat/Hello-World", max_commits=5)
     assert isinstance(df, pd.DataFrame)
     assert len(df) <= 5
+
+def test_octocat_commit_messages_and_columns():
+    token = os.environ.get("GITHUB_TOKEN")
+    print("PYTEST sees token:", repr(token))
+    if not token:
+        pytest.skip("No real GitHub token available")
+    with this_vcr.use_cassette('octocat_hello_world_all.yaml', record_mode='once'):
+        df = fetch_commits("octocat/Hello-World", max_commits=10)
+    expected_columns = {"sha", "author", "email", "date", "message"}
+    assert set(df.columns) == expected_columns
+    assert all(isinstance(msg, str) and msg for msg in df["message"])
+    assert any("commit" in msg.lower() or "readme" in msg.lower() for msg in df["message"])
+    assert all(isinstance(a, str) and a for a in df["author"])
