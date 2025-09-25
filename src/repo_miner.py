@@ -12,7 +12,7 @@ Sub-commands:
 import os
 import argparse
 import pandas as pd
-from github import Github
+from github import Github, Auth
 
 def fetch_commits(repo_name: str, max_commits: int = None) -> pd.DataFrame:
     """
@@ -25,7 +25,9 @@ def fetch_commits(repo_name: str, max_commits: int = None) -> pd.DataFrame:
         raise RuntimeError("GITHUB_TOKEN environment variable not set")
 
     # 2) Initialize GitHub client and get the repo
-    client = Github(token)
+    from github import Auth
+    auth = Auth.Token(token)
+    client = Github(auth=auth)
     repo =  client.get_repo(repo_name)
 
     # 3) Fetch commit objects (paginated by PyGitHub)
@@ -44,7 +46,7 @@ def fetch_commits(repo_name: str, max_commits: int = None) -> pd.DataFrame:
         author = comm.commit.author.name
         email = comm.commit.author.email
         date = comm.commit.author.date
-        message = comm.commit.message
+        message = comm.commit.message.split("\n")[0]
 
         commits_dict.append({
             "sha": sha,

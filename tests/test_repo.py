@@ -1,14 +1,15 @@
-# tests/test_repo_miner.py
-
-import os
+import sys, os
 import pandas as pd
 import pytest
 from datetime import datetime, timedelta
-from src.repo_miner import fetch_commits, fetch_issues, merge_and_summarize
+
+# --- Ensure src on sys.path ---
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.repo_miner import fetch_commits
 import vcr
 
-# --- Helpers for dummy GitHub API objects ---
-
+# --- Dummy GitHub objects for offline tests ---
 class DummyAuthor:
     def __init__(self, name, email, date):
         self.name = name
@@ -25,23 +26,6 @@ class DummyCommit:
         self.sha = sha
         self.commit = DummyCommitCommit(DummyAuthor(author, email, date), message)
 
-class DummyUser:
-    def __init__(self, login):
-        self.login = login
-
-class DummyIssue:
-    def __init__(self, id_, number, title, user, state, created_at, closed_at, comments, is_pr=False):
-        self.id = id_
-        self.number = number
-        self.title = title
-        self.user = DummyUser(user)
-        self.state = state
-        self.created_at = created_at
-        self.closed_at = closed_at
-        self.comments = comments
-        # attribute only on pull requests
-        self.pull_request = DummyUser("pr") if is_pr else None
-
 class DummyRepo:
     def __init__(self, commits, issues):
         self._commits = commits
@@ -50,33 +34,32 @@ class DummyRepo:
     def get_commits(self):
         return self._commits
 
-    def get_issues(self, state="all"):
-        # filter by state
-        if state == "all":
-            return self._issues
-        return [i for i in self._issues if i.state == state]
-
+# Minimal DummyGithub
 class DummyGithub:
     def __init__(self, token):
         assert token == "fake-token"
     def get_repo(self, repo_name):
-        # ignore repo_name; return repo set in test fixture
         return self._repo
 
-@pytest.fixture(autouse=True)
-def patch_env_and_github(monkeypatch):
-    # Set fake token
-    monkeypatch.setenv("GITHUB_TOKEN", "fake-token")
-    # Patch Github class
-    # TODO
-
-# Helper global placeholder
+# Global dummy instance
 gh_instance = DummyGithub("fake-token")
 
-# --- Tests for fetch_commits ---
-# An example test case
-def test_fetch_commits_basic(monkeypatch):
-    # Setup dummy commits
+@pytest.fixture
+def dummy_github(monkeypatch):
+    """Patch Github and env for offline tests."""
+    monkeypatch.setenv("GITHUB_TOKEN", "fake-token")
+    monkeypatch.setattr("src.repo_miner.Github", lambda auth=None: gh_instance)
+    return gh_instance
+
+# --- VCR instance for live test ---
+this_vcr = vcr.VCR(
+    cassette_library_dir='tests/cassettes',
+    record_mode='once',
+    match_on=['uri', 'method']
+)
+
+# ---------------- OFFLINE TESTS ----------------
+def test_fetch_commits_basic(dummy_github):
     now = datetime.now()
     commits = [
         DummyCommit("sha1", "Alice", "a@example.com", now, "Initial commit\nDetails"),
@@ -88,9 +71,29 @@ def test_fetch_commits_basic(monkeypatch):
     assert len(df) == 2
     assert df.iloc[0]["message"] == "Initial commit"
 
-def test_fetch_commits_limit(monkeypatch):
-    # More commits than max_commits
-    # TODO： Test that fetch_commits respects the max_commits limit.
+def test_fetch_commits_limit(dummy_github):
+    now = datetime.now()
+    commits = [
+        DummyCommit("sha1", "Alice", "a@example.com", now, "Commit1"),
+        DummyCommit("sha2", "Bob", "b@example.com", now, "Commit2"),
+        DummyCommit("sha3", "Carol", "c@example.com", now, "Commit3")
+    ]
+    gh_instance._repo = DummyRepo(commits, [])
+    df = fetch_commits("any/repo", max_commits=2)
+    assert len(df) == 2
 
-def test_fetch_commits_empty(monkeypatch):
-    # TODO: Test that fetch_commits returns empty DataFrame when no commits exist.
+def test_fetch_commits_empty(dummy_github):
+    gh_instance._repo = DummyRepo([], [])
+    df = fetch_commits("any/repo")
+    assert df.empty
+
+# ---------------- LIVE TEST (with real GitHub + VCR) ----------------
+def test_fetch_commits_octocat():
+    token = os.environ.get("GITHUB_TOKEN")
+    print("PYTEST sees token:", repr(token))
+    if not token:
+        pytest.skip("No real GitHub token available")
+    with this_vcr.use_cassette('octocat_hello_world_basic.yaml'):
+        df = fetch_commits("octocat/Hello-World", max_commits=5)
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) <= 5
