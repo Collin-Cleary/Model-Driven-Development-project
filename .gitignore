@@ -1,4 +1,8 @@
+
 .venv/
 venv/
 env/
 tests/cassettes/
+__pycache__/
+**/__pycache__/
+*.pyc
