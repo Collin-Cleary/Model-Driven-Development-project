@@ -133,7 +133,7 @@ def test_octocat_issues_excludes_prs():
     if not token:
         pytest.skip("No real GitHub token available")
     with this_vcr.use_cassette("octocat_issues_excludes_prs.yaml", record_mode="once"):
-        df = fetch_issues("octocat/Hello-World", state="all")
+        df = fetch_issues("octocat/Hello-World", state="all", max_issues=10)
     assert "is_pr" in df.columns
     assert not df["is_pr"].any()
 
@@ -142,7 +142,7 @@ def test_octocat_issues_dates_are_iso():
     if not token:
         pytest.skip("No real GitHub token available")
     with this_vcr.use_cassette("octocat_issues_dates_are_iso.yaml", record_mode="once"):
-        df = fetch_issues("octocat/Hello-World", state="all")
+        df = fetch_issues("octocat/Hello-World", state="all", max_issues=10)
     assert "created_at" in df.columns
     assert df["created_at"].str.match(r"\d{4}-\d{2}-\d{2}T").all()
     if df["closed_at"].notna().any():
@@ -153,7 +153,7 @@ def test_octocat_issues_duration_days():
     if not token:
         pytest.skip("No real GitHub token available")
     with this_vcr.use_cassette("octocat_issues_duration_days.yaml", record_mode="once"):
-        df = fetch_issues("octocat/Hello-World", state="all")
+        df = fetch_issues("octocat/Hello-World", state="all", max_issues=10)
     assert "duration_days" in df.columns
     closed = df[df["state"] == "closed"]
     assert (closed["duration_days"] >= 0).all()

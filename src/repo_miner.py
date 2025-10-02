@@ -112,7 +112,9 @@ def fetch_issues(repo_name: str, state: str = "all", max_issues: int = None) -> 
             "created_at": local_created_at,
             "closed_at": local_closed_at,
             "comments": issue.comments,
-            "open_duration_days": duration
+            "open_duration_days": duration,
+            "is_pr": issue.pull_request is not None,
+            "duration_days": duration      
         })
 
     # 5) Build DataFrame
