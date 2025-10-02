@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 # --- Ensure src on sys.path ---
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.repo_miner import fetch_commits
+from src.repo_miner import fetch_commits, fetch_issues
 import vcr
 
 # --- Dummy GitHub objects for offline tests ---
@@ -25,6 +25,23 @@ class DummyCommit:
     def __init__(self, sha, author, email, date, message):
         self.sha = sha
         self.commit = DummyCommitCommit(DummyAuthor(author, email, date), message)
+
+class DummyUser:
+    def __init__(self, login):
+        self.login = login
+
+class DummyIssue:
+    def __init__(self, id_, number, title, user, state, created_at, closed_at, comments, is_pr=False):
+        self.id = id_
+        self.number = number
+        self.title = title
+        self.user = DummyUser(user) if user else None
+        self.state = state
+        self.created_at = created_at
+        self.closed_at = closed_at
+        self.comments = comments
+        # Mimic PyGithub PR marker
+        self.pull_request = {} if is_pr else None
 
 class DummyRepo:
     def __init__(self, commits, issues):
@@ -110,3 +127,33 @@ def test_octocat_commit_messages_and_columns():
     assert all(isinstance(msg, str) and msg for msg in df["message"])
     assert any("commit" in msg.lower() or "readme" in msg.lower() for msg in df["message"])
     assert all(isinstance(a, str) and a for a in df["author"])
+
+def test_octocat_issues_excludes_prs():
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        pytest.skip("No real GitHub token available")
+    with this_vcr.use_cassette("octocat_issues_excludes_prs.yaml", record_mode="once"):
+        df = fetch_issues("octocat/Hello-World", state="all", max_issues=10)
+    assert "is_pr" in df.columns
+    assert not df["is_pr"].any()
+
+def test_octocat_issues_dates_are_iso():
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        pytest.skip("No real GitHub token available")
+    with this_vcr.use_cassette("octocat_issues_dates_are_iso.yaml", record_mode="once"):
+        df = fetch_issues("octocat/Hello-World", state="all", max_issues=10)
+    assert "created_at" in df.columns
+    assert df["created_at"].str.match(r"\d{4}-\d{2}-\d{2}T").all()
+    if df["closed_at"].notna().any():
+        assert df.loc[df["closed_at"].notna(), "closed_at"].str.match(r"\d{4}-\d{2}-\d{2}T").all()
+
+def test_octocat_issues_duration_days():
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        pytest.skip("No real GitHub token available")
+    with this_vcr.use_cassette("octocat_issues_duration_days.yaml", record_mode="once"):
+        df = fetch_issues("octocat/Hello-World", state="all", max_issues=10)
+    assert "duration_days" in df.columns
+    closed = df[df["state"] == "closed"]
+    assert (closed["duration_days"] >= 0).all()
