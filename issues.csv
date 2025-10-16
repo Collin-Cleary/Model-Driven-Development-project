@@ -1,22 +1,25 @@
 id,number,title,user,state,created_at,closed_at,comments,open_duration_days,is_pr,duration_days
-3522909248,4397,12345,kolja-test-account,open,2025-10-16T17:54:37+00:00,,0,,False,
-3522908851,4396,Test Issue with Assignees - 2025-10-16T11:54:35.432579,kolja-test-account,open,2025-10-16T17:54:35+00:00,,0,,False,
-3522908813,4395,Test Issue with Body - 2025-10-16T11:54:34.483603,kolja-test-account,open,2025-10-16T17:54:34+00:00,,0,,False,
-3522908781,4394,Test Issue - 2025-10-16T11:54:33.941845,kolja-test-account,open,2025-10-16T17:54:34+00:00,,0,,False,
-3516873580,4392,Обойти всю защиту на редми 11е,Mikki200893,open,2025-10-15T08:06:25+00:00,,0,,False,
-3506880919,4383,"Visited here on October 12, 2025",isHuaMouRen,open,2025-10-12T09:35:28+00:00,,0,,False,
-3499669638,4381,Demo Issue,gautvm,open,2025-10-09T15:39:37+00:00,,0,,False,
-3499588914,4380,Test Issue from API,gautvm,open,2025-10-09T15:15:40+00:00,,0,,False,
-3499581952,4379,Test Issue from API,gautvm,open,2025-10-09T15:13:23+00:00,,0,,False,
-3499578578,4378,Test Issue from API,gautvm,open,2025-10-09T15:12:15+00:00,,0,,False,
-3499575327,4377,Test Issue from API,gautvm,open,2025-10-09T15:11:07+00:00,,0,,False,
-3499330679,4376,Test Issue,gautvm,open,2025-10-09T14:04:20+00:00,,0,,False,
-3495278621,4374,Not working,zaineldinkamal2014-byte,open,2025-10-08T12:41:22+00:00,,0,,False,
-3485538781,4372,Test Issue,Amarjotgill1996,open,2025-10-06T03:13:54+00:00,,0,,False,
-3475170497,4365,Piloto automático,jfjeifkvbk,open,2025-10-01T21:22:53+00:00,,0,,False,
-3473194887,4363,Test from Tenant B POC,pruthvis,closed,2025-10-01T11:38:18+00:00,2025-10-01T11:42:37+00:00,0,0.0,False,0.0
-3473194329,4362,Test from Tenant A POC,cyberlynxs-max,closed,2025-10-01T11:38:10+00:00,2025-10-01T11:42:26+00:00,0,0.0,False,0.0
-3471525875,4361,The Hate U Gave,moniquenhenry86,closed,2025-10-01T00:30:38+00:00,2025-10-01T00:34:00+00:00,2,0.0,False,0.0
-3471515873,4360,New Beginnings,moniquenhenry86,open,2025-10-01T00:27:16+00:00,,0,,False,
-3461806780,4357,[DRAFT] Feat: Création de compte utilisateur,dust-agent[bot],open,2025-09-28T12:55:26+00:00,,0,,False,
-3455749672,4355,[CjlZRgYFDZ] Updates fail: cannot execute UPDATE in a read-only transaction (postgres tool sets transactions read-only),flexus-caw[bot],open,2025-09-26T04:27:45+00:00,,0,,False,
+3520541832,7045,About connection release when maintaining sessions,oyealex,closed,2025-10-16T06:43:43+00:00,2025-10-16T06:43:53+00:00,1,0.0,False,0.0
+3503677984,7041,import Requests kicks me out of  python interpreter. (Python 3.14.0a5),diazerium,open,2025-10-10T16:36:45+00:00,,0,,False,
+3489012650,7040,2.32.5 breaks passing custom SSL context,Tasssadar,open,2025-10-06T20:40:49+00:00,,0,,False,
+3479023770,7039,Type hint needed,BrokenC1oud,closed,2025-10-02T21:35:39+00:00,2025-10-02T22:52:37+00:00,0,0.0,False,0.0
+3442209600,7035,Warnings Produced when Using a PEP 440 Local Version,bryanfraschetti,open,2025-09-22T18:32:11+00:00,,0,,False,
+3436794218,7034,`NOTICE` file missing in wheel,radoering,open,2025-09-20T06:52:42+00:00,,1,,False,
+3435765092,7033,requests with self signed certs broken,Phoobian,open,2025-09-19T20:09:46+00:00,,1,,False,
+3429481127,7032,Add `simplejson` as an optional extra,beltekylevi,open,2025-09-18T09:25:31+00:00,,4,,False,
+3416079708,7031,"AI Bug Analysis: ReadTimeout exception HTTPSConnectionPool(host='domain.com', port=443): Read timed out. (read timeout=10)",pinky2004-dot,closed,2025-09-15T02:56:19+00:00,2025-09-15T02:58:21+00:00,0,0.0,False,0.0
+3411449370,7029,"One request fails, but others don't; it also succeeds in terminal",ErikDB87,closed,2025-09-12T17:58:07+00:00,2025-09-12T17:58:14+00:00,1,0.0,False,0.0
+3409924820,7028,Tor request ,Tina-1300,closed,2025-09-12T10:30:18+00:00,2025-09-12T10:30:26+00:00,1,0.0,False,0.0
+3404571865,7027,@ziavai777,ziavai777,closed,2025-09-11T03:13:39+00:00,2025-09-11T03:34:15+00:00,3,0.0,False,0.0
+3392788824,7024,About request.Session,Jsy0220,closed,2025-09-08T06:22:59+00:00,2025-09-08T13:27:58+00:00,1,0.0,False,0.0
+3386785005,7022,create_db.py,ziavai777,closed,2025-09-05T08:49:52+00:00,2025-09-10T12:37:46+00:00,2,5.0,False,5.0
+3384528720,7021,@ziavai777,ziavai777,closed,2025-09-04T16:39:52+00:00,2025-09-04T17:47:43+00:00,2,0.0,False,0.0
+3381345201,7020,Reqable docs,ziavai777,closed,2025-09-03T21:23:25+00:00,2025-09-03T21:28:12+00:00,0,0.0,False,0.0
+3364056074,7018,Remove unused argument from _urllib3_request_context,Nate1729,closed,2025-08-28T17:03:31+00:00,2025-08-29T00:03:58+00:00,1,0.0,False,0.0
+3341146794,7016,recursive dependency involving fixture 'httpbin' detected when running tests,hramrach,open,2025-08-21T10:10:55+00:00,,5,,False,
+3339239966,7014,Cannot use LWPCookiejar with requests,hramrach,open,2025-08-20T19:09:35+00:00,,4,,False,
+3332878377,7013,v2.32.5 wheel file hash doesn't match between PyPI and CI,EpicWink,open,2025-08-19T04:52:57+00:00,,4,,False,
+3295353684,7006,ModuleNotFoundError,idislikebluecheese,closed,2025-08-06T06:28:47+00:00,2025-08-06T11:28:33+00:00,1,0.0,False,0.0
+3292148459,7003,"When using RequestsCookieJar to set a cookie with an empty string ('') or 0 as the value, it cannot be retrieved properly afterward.",mengxunQAQ,open,2025-08-05T08:36:58+00:00,,0,,False,
+3286622470,7002,Teat,VanyaKL1294,closed,2025-08-03T03:16:40+00:00,2025-08-03T03:16:48+00:00,0,0.0,False,0.0
+3280460825,7001,Dynamic import causing FileNotFoundError in shrinkwrapped applications after deployment of new versioon,jolumide,closed,2025-07-31T13:21:53+00:00,2025-07-31T15:05:25+00:00,1,0.0,False,0.0
