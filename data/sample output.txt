@@ -1,0 +1,20 @@
+I used the repository psf/requests which is python's most popular HTTP library with lots of commits and issues
+
+here are the commands I used to populate commits.csv and issues.csv
+python -m src.repo_miner fetch-issues --repo psf/requests --state all  --max 50 --out issues.csv
+python -m src.repo_miner fetch-commits --repo psf/requests --max 100 --out commits.csv
+
+the command to summarize:
+python -m src.repo_miner summarize --commits commits.csv --issues issues.csv
+
+The output:
+top committers
+          commit_count  count
+          Nate Prewitt     42
+       dependabot[bot]     16
+Ian Stapleton Cordasco     11
+         anupam-arista      6
+       Thomas Grainger      6
+closed 14 of 24. closed rate is: 58.333333333333336
+avg issue duration:
+0.35714285714285715 days
